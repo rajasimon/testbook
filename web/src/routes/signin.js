@@ -11,7 +11,8 @@ class Signin extends Component {
       password: '',
       errorUsername: '',
       errorPassword: '',
-      errorMessage: ''
+      errorMessage: '',
+      isLoggedIn: props.isLoggedIn,
     }
 
     this.handleUsername = this.handleUsername.bind(this)
@@ -53,9 +54,14 @@ class Signin extends Component {
   handleResponse(response) {
     // Check the token present in the response
     if (response.hasOwnProperty('token')) {
+      localStorage.setItem('user_id', response.user_id)
       localStorage.setItem('token', response.token)
       localStorage.setItem('email', response.email)
-      this.props.history.push('/search')
+      
+      // Redirect to main page.
+      this.props.history.go(0)
+      this.props.history.push('/')
+
     } else {
       this.handleErrors(response)
     }

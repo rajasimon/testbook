@@ -3,12 +3,17 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Card extends Component {
+  constructor(props) {
+    super(props)
+    
+  }
+
   render() {
     return (
       <div className="card-component">
         <div className="card">
           <header className="card-header">
-            <p className="card-header-title">Component</p>
+            <p className="card-header-title">{this.props.company.name}</p>
             <a className="card-header-icon">
               <span className="icon">
                 <FontAwesomeIcon icon="heart" />
@@ -17,7 +22,7 @@ class Card extends Component {
           </header>
           <div className="card-content">
             <div className="content">
-              Address here
+              { this.props.company.address }
             </div>
           </div>
         </div>
