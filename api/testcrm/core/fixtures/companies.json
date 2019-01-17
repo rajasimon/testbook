@@ -1,0 +1,20 @@
+[
+    {
+        "model": "core.company",
+        "pk": 1,
+        "fields": {
+            "name": "Visteon",
+            "address": "Olympia Tech Park, Guindy, Chennai",
+            "phone_number": "+914449477000"
+        }
+    },
+    {
+        "model": "core.company",
+        "pk": 2,
+        "fields": {
+            "name": "Leadbook ( Singapore )",
+            "address": "141 Cecil St, #03-02 Tung Ann Association Building, Singapore 069541",
+            "phone_number": "+6569093190"
+        }
+    }
+]

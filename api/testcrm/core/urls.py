@@ -11,5 +11,6 @@ router.register(r'companies', views.CompanyViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api-token-auth/', views.CustomAuthToken.as_view()),
-    path('activate/<token>', views.activate_token)
+    path('activate/<token>', views.activate_token),
+    path('get-favourites/', views.get_favourites)
 ]

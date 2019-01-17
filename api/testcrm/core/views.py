@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, authentication, permissions
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -100,3 +101,14 @@ class CustomAuthToken(ObtainAuthToken):
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializers
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_favourites(request):
+    favourites = [
+        {
+            'name': company.name, 
+            'address': company.address
+        } for company in request.user.profile.companies.all()]
+    return Response(favourites)

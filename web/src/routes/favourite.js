@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Card from './card';
 
-class Search extends Component {
+class Favourite extends Component {
   constructor(props) {
     super(props) 
 
@@ -25,10 +25,11 @@ class Search extends Component {
     console.log(this.props.location)
     
     // Also get the companies
-    fetch('http://localhost:8000/companies/', {
+    fetch('http://localhost:8000/get-favourites/', {
       method: "GET",
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
       }
     })
       .then(res => res.json())
@@ -36,6 +37,7 @@ class Search extends Component {
   }
 
   handleRespone(response) {
+    console.log(response)
     this.setState({
       companies: response
     })
@@ -69,4 +71,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default Favourite;

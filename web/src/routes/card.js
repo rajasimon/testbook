@@ -15,7 +15,7 @@ class Card extends Component {
           <header className="card-header">
             <p className="card-header-title">{this.props.company.name}</p>
             <a className="card-header-icon">
-              <span className="icon">
+              <span className="icon has-text-info">
                 <FontAwesomeIcon icon="heart" />
               </span>
             </a>

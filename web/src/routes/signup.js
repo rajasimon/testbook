@@ -89,7 +89,7 @@ class Signup extends Component {
               <div className="field">
                 <label className="label">Username</label>
                 <div className="control has-icons-left has-icons-right">
-                  <input className="input" type="text" placeholder="Raja Simon" value={this.state.username} onChange={this.handleUsername} />
+                  <input className="input" type="text" placeholder="rajasimon" value={this.state.username} onChange={this.handleUsername} />
                   <span className="icon is-small is-left">
                     <FontAwesomeIcon icon="user" />
                   </span>
@@ -118,7 +118,7 @@ class Signup extends Component {
               <div className="field">
                 <label className="label">Password</label>
                 <div className="control has-icons-left has-icons-right">
-                  <input className="input" type="text" placeholder="xxxxxx" value={this.state.password} onChange={this.handlePassword} />
+                  <input className="input" type="password" placeholder="xxxxxx" value={this.state.password} onChange={this.handlePassword} />
                   <span className="icon is-small is-left">
                     <FontAwesomeIcon icon="lock" />
                   </span>

@@ -38,7 +38,7 @@ class Navbar extends Component {
 
     if (this.state.isLoggedIn) {
       postLoginSearchButton = <Link className="navbar-item" to="/search">Search</Link>
-      postLoginFavouritesButton = <Link className="navbar-item" to="/favourites">Favourites</Link>
+      postLoginFavouritesButton = <Link className="navbar-item" to="/favourite">Favourite</Link>
       postLoginProfileButton = <Link className="button is-primary" to="/profile">Profile</Link>
       postLoginLogoutButton  = <button className="button is-light" onClick={this.handleLogout}>Logout</button>
 
