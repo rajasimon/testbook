@@ -1,4 +1,4 @@
-language: python
+language: generic
 deploy:
   - provider: script
     github-token: $GITHUB_TOKEN
