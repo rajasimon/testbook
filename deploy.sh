@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Environment variable
+# Create github personal token and update the travis environment variable
+
 setup_git() {
   git config --global user.email "rajasimon@icloud.com"
   git config --global user.name "Raja Simon"
