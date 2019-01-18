@@ -6,7 +6,7 @@ python:
 services: postgresql
 
 addons:
-  postgresql: "10"
+  postgresql: 10
   apt:
     packages:
     - postgresql-10
@@ -14,10 +14,11 @@ addons:
 
 env:
   global:
-  - PGPORT=5433
+    - PGUSER=postgres
+    - PGHOST=""
+    - PGPORT=5433
 
 before_install:
-  - sudo /etc/init.d/postgresql stop
   - sudo /etc/init.d/postgresql start 10
 
 install:
