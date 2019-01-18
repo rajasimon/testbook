@@ -4,17 +4,12 @@ import { Link } from 'react-router-dom'
 class Navbar extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
 
     this.state = {
       isLoggedIn: props.isLoggedIn
     }
 
     this.handleLogout = this.handleLogout.bind(this)
-  }
-
-  componentDidMount() {
-    console.log(this)
   }
 
   handleLogout() {
@@ -38,7 +33,7 @@ class Navbar extends Component {
 
     if (this.state.isLoggedIn) {
       postLoginSearchButton = <Link className="navbar-item" to="/search">Search</Link>
-      postLoginFavouritesButton = <Link className="navbar-item" to="/favourite">Favourite</Link>
+      postLoginFavouritesButton = <Link className="navbar-item" to="/favorite">Favorite</Link>
       postLoginProfileButton = <Link className="button is-primary" to="/profile">Profile</Link>
       postLoginLogoutButton  = <button className="button is-light" onClick={this.handleLogout}>Logout</button>
 
@@ -54,11 +49,11 @@ class Navbar extends Component {
               <h1 className="title">TestCRM</h1>
             </a>
 
-            <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
+            <button className="navbar-burger" aria-label="menu" aria-expanded="false">
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
-            </a>
+            </button>
           </div>
 
           <div id="navbarBasicExample" className="navbar-menu">

@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from rest_framework.test import APIClient, APIRequestFactory
 
-from testcrm.core.models import Company
-from testcrm.core.views import UserViewSet, CompanyViewSet
+from backend.core.models import Company
+from backend.core.views import UserViewSet, CompanyViewSet
 
 
 # Create your tests here.

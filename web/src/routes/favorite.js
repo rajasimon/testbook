@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Card from './card';
 
-class Favourite extends Component {
+class Favorite extends Component {
   constructor(props) {
     super(props) 
 
@@ -17,7 +15,7 @@ class Favourite extends Component {
       companies: []
     }
 
-    this.handleRespone = this.handleRespone.bind(this)
+    this.handleResponse = this.handleResponse.bind(this)
   }
 
   componentDidMount() {
@@ -25,7 +23,7 @@ class Favourite extends Component {
     console.log(this.props.location)
     
     // Also get the companies
-    fetch('http://localhost:8000/get-favourites/', {
+    fetch('http://localhost:8000/get-favorites/', {
       method: "GET",
       headers:{
         'Content-Type': 'application/json',
@@ -33,10 +31,10 @@ class Favourite extends Component {
       }
     })
       .then(res => res.json())
-      .then(response => this.handleRespone(response))
+      .then(response => this.handleResponse(response))
   }
 
-  handleRespone(response) {
+  handleResponse(response) {
     console.log(response)
     this.setState({
       companies: response
@@ -44,7 +42,7 @@ class Favourite extends Component {
   }
 
   render() {
-    const listItems = this.state.companies.map((company) => <Card company={company} />)
+    const listItems = this.state.companies.map((company) => <Card key={Math.random()} company={company} token={this.state.token} />)
 
     return (
       <div className="search-component">
@@ -71,4 +69,4 @@ class Favourite extends Component {
   }
 }
 
-export default Favourite;
+export default Favorite;

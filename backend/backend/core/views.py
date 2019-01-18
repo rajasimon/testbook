@@ -9,8 +9,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
 
-from testcrm.core.models import Profile, Company
-from testcrm.core.serializers import UserSerializers, CompanySerializers, PasswordSerializer
+from backend.core.models import Profile, Company
+from backend.core.serializers import UserSerializers, CompanySerializers, PasswordSerializer
 
 
 # Create your views here.
@@ -96,19 +96,48 @@ class CustomAuthToken(ObtainAuthToken):
                 'message': 'Please validate your email address.'
             })
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_companies(request):
+    companies = Company.objects.all()
+    context={'user_id': request.user.id}
+    serializer = CompanySerializers(companies, context=context)
+    return Response(serializer.data)
 
 
-class CompanyViewSet(viewsets.ModelViewSet):
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializers
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def search_companies(request):
+    companies = Company.objects.all()
+    context={'user_id': request.user.id}
+    serializer = CompanySerializers(companies, context=context)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_favourites(request):
-    favourites = [
-        {
-            'name': company.name, 
-            'address': company.address
-        } for company in request.user.profile.companies.all()]
-    return Response(favourites)
+def get_favorites(request):
+    companies = request.user.profile.companies.all()
+    context = {'user_id': request.user.id}
+    serializer = CompanySerializers(companies, context=context)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def set_favorite(request):
+    company_id = request.data.get('id')
+    company = Company.objects.get(id=company_id)
+
+    request.user.profile.companies.add(company)
+    return Response({'favorite': True})
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def delete_favorite(request):
+    company_id = request.data.get('id')
+    company = Company.objects.get(id=company_id)
+
+    request.user.profile.companies.remove(company)
+    return Response({'favorite': False})

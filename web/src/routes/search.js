@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Card from './card';
@@ -14,51 +12,77 @@ class Search extends Component {
       token: props.token,
       email: props.email,
       isLoggedIn: props.isLoggedIn,
-      companies: []
+      companies: [],
+      search: ''
     }
 
-    this.handleRespone = this.handleRespone.bind(this)
+    this.handleResponse = this.handleResponse.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.handleSearchInputSubmit = this.handleSearchInputSubmit.bind(this)
   }
 
   componentDidMount() {
-    console.log(this.state)
-    console.log(this.props.location)
-    
     // Also get the companies
-    fetch('http://localhost:8000/companies/', {
+    fetch('http://localhost:8000/get-companies/', {
       method: "GET",
       headers:{
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
       }
     })
       .then(res => res.json())
-      .then(response => this.handleRespone(response))
+      .then(response => this.handleResponse(response))
   }
-
-  handleRespone(response) {
+  
+  handleResponse(response) {
     this.setState({
       companies: response
     })
   }
 
+  handleSearch(event) {
+    this.setState({
+      search: event.target.value
+    })
+  }
+
+  handleSearchInputSubmit(event) {
+    event.preventDefault()
+
+    fetch('http://localhost:8000/search-companies/', {
+      method: "POST",
+      body: JSON.stringify({
+        search: this.state.search
+      }),
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.state.token,
+      }
+    })
+      .then(res => res.json())
+      .then(response => console.log(response))
+  }
+
   render() {
-    const listItems = this.state.companies.map((company) => <Card company={company} />)
+    const listItems = this.state.companies.map((company) => <Card key={Math.random()} company={company} token={this.state.token} />)
 
     return (
       <div className="search-component">
         <div className="columns is-mobile is-centered">
           <div className="column is-three-quarters-desktop is-three-fifths-tablet">
-            <div className="field">
-              <div className="control">              
-                <div className="control has-icons-left has-icons-right">
-                    <input className="input" type="text" placeholder="Search..." />
+            <form onSubmit={this.handleSearchInputSubmit}>
+              <div className="field">
+                <div className="control">              
+                  <div className="control has-icons-left has-icons-right">
+                    <input className="input" type="text" placeholder="Search..." value={this.state.search} onChange={this.handleSearch} />
                     <span className="icon is-small is-left">
                       <FontAwesomeIcon icon="search" />
                     </span>
                   </div>
+                </div>
               </div>
-            </div>
-
+            </form>
+            <br></br>
             <div>
               { listItems }
             </div>

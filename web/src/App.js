@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Navbar from './components/Navbar';
 import Signin from './routes/signin';
@@ -8,7 +8,7 @@ import Signup from './routes/signup';
 import Profile from './routes/profile';
 import Home from './routes/home';
 import Search from './routes/search';
-import Favourite from './routes/favourite';
+import Favorite from './routes/favorite';
 
 import './App.css';
 
@@ -50,7 +50,7 @@ class App extends Component {
               <Route exact path='/signup' render={(props) => <Signup {...props} isLoggedIn={this.state.isLoggedIn} />} />
               <Route exact path='/search' render={(props) => <Search {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
               <Route exact path='/profile' render={(props) => <Profile {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
-              <Route exact path='/favourite' render={(props) => <Favourite {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
+              <Route exact path='/favorite' render={(props) => <Favorite {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
             </div>
           </section>
         </div>

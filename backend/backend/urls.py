@@ -1,4 +1,4 @@
-"""testcrm URL Configuration
+"""backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from testcrm.core import urls as testcrm_urls
+from backend.core import urls as backend_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(testcrm_urls))
+    path('', include(backend_urls))
 ]

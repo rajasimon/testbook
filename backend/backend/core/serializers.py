@@ -8,8 +8,8 @@ from django.core.mail import EmailMultiAlternatives
 # Third party moduels 
 from rest_framework import serializers
 
-from testcrm.core.models import Profile, Company
-from testcrm.core.helper import generate_token
+from backend.core.models import Profile, Company
+from backend.core.helper import generate_token
 
 
 # Serializer fro user ( accounts management )
@@ -63,7 +63,21 @@ class PasswordSerializer(serializers.Serializer):
     confirm_password = serializers.CharField(required=True)
 
 
-class CompanySerializers(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Company
-        fields = ['url', 'name', 'address', 'phone_number']
+class CompanySerializers(serializers.BaseSerializer):
+    def to_representation(self, obj):
+        user_id = self.context.get('user_id')
+
+        favorites = [] 
+        for company in self.instance.all():
+            favorite = {}
+            favorite['id'] = company.id
+            favorite['name'] = company.name
+            favorite['address'] = company.address
+            profile = company.profile_set.filter(user_id=user_id).first()
+            if profile:
+                favorite['favorite'] = True
+            else:
+                favorite['favorite'] = False
+
+            favorites.append(favorite)
+        return favorites
