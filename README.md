@@ -7,13 +7,10 @@ Leadbook Full Stack Developer | Programming Challenge
 
 ## Codebase
 
-This repo codebase have two folders `backend` and `frontend`. And it suppose to
-be different repo with separate CI pipeline but for the clearity to navigate for
-this coding challenge I created a single repo. 
+This repo codebase has two folders `backend` and `frontend`. And it supposes to be different repo with separate CI pipeline but for the clarity to navigate for this coding challenge I created a single repo.
 
-Deployment for the single repo is hard so I created main travis file that can 
-create two branch and push backend and frontend to separate branch. Each branch
-will have separate travis file so it run CI/CD.
+Deployment for the single repo is hard so I created main Travis file that can create two branches and push backend and frontend to separate branch. Each branch will have separate Travis file so it run CI/CD.
+
 
 ## Frontend
 

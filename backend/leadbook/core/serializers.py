@@ -18,7 +18,6 @@ class UserSerializers(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         user.set_password(validated_data['password'])
-        user.is_active = False
         user.save()
 
         # After creating the inactive user create profile object

@@ -66,10 +66,16 @@ class UserViewSet(viewsets.ModelViewSet):
         # 
         user = self.get_object()
         serializer = PasswordSerializer(data=request.data)
+
         if serializer.is_valid():
             # Check old password
             if not user.check_password(serializer.data.get('old_password')):
-                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(
+                    {
+                        "old_password": ["Wrong password."]
+                    }, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
             
             new_password = serializer.data.get('new_password')
             confirm_password = serializer.data.get('confirm_password')
