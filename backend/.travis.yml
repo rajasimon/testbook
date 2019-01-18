@@ -9,5 +9,8 @@ install:
   - pip install pipenv
   - pipenv install --deploy
 
+before_script:
+  - psql -c "CREATE DATABASE travisci;" -U postgres
+
 script:
   - python manage.py test
