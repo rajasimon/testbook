@@ -1,14 +1,2 @@
 language: generic
-deploy:
-  - provider: script
-    github-token: $GITHUB_TOKEN
-    local-dir: backend
-    target-branch: backend
-    on:
-      branch: master
-  - provider: script
-    local-dir: frontend
-    github-token: $GITHUB_TOKEN
-    target-branch: frontend
-    on:
-      branch: master
+script: bash ./deploy.sh
