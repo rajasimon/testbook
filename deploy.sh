@@ -5,18 +5,24 @@ setup_git() {
   git config --global user.name "Raja Simon"
 }
 
-commit_backend() {
-  git checkout --orphan backend
-  mv ./backend 
-  git add . *.html
+push_backend() {
+  cd backend
+  git init
+  git remote add origin https://${GH_TOKEN}@github.com/rajasimon/testcrm.git > /dev/null 2>&1
+  git add --all
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  git push --quiet --force --set-upstream origin master
 }
 
-upload_files() {
-  git remote add origin-pages https://${GH_TOKEN}@github.com/MVSE-outreach/resources.git > /dev/null 2>&1
-  git push --quiet --set-upstream origin-pages gh-pages 
+push_frontend() {
+  cd frontend
+  git init
+  git remote add origin https://${GH_TOKEN}@github.com/rajasimon/testcrm.git > /dev/null 2>&1
+  git add --all
+  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  git push --quiet --set-upstream origin master
 }
 
-# setup_git
-# commit_website_files
-# upload_files
+setup_git
+push_backend
+push_frontend
