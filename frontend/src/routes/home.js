@@ -19,7 +19,7 @@ class Home extends Component {
         </section>
         <section className="section">
           <div className="container">
-            <div class="columns is-mobile">
+            <div className="columns is-mobile">
               <div className="column">
                 <header className="header">
                   <h4 className="title has-text-primary has-text-centered">Beautiful Interface</h4>
@@ -48,7 +48,7 @@ class Home extends Component {
           </div>
         </section>
         <footer className="footer">
-          <div class="content has-text-centered">
+          <div className="content has-text-centered">
             <p>
               TestCRM Made with love in Chennai by <a href="https://twitter.com/rajasimon">Rajasimon</a>
             </p>

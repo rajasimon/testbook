@@ -8,8 +8,8 @@ from django.core.mail import EmailMultiAlternatives
 # Third party moduels 
 from rest_framework import serializers
 
-from backend.core.models import Profile, Company
-from backend.core.helper import generate_token
+from leadbook.core.models import Profile, Company
+from leadbook.core.helper import generate_token
 
 
 # Serializer fro user ( accounts management )

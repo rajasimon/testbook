@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Card from './card';
 
@@ -46,24 +45,17 @@ class Favorite extends Component {
 
     return (
       <div className="search-component">
-        <div className="columns is-mobile is-centered">
-          <div className="column is-three-quarters-desktop is-three-fifths-tablet">
-            <div className="field">
-              <div className="control">              
-                <div className="control has-icons-left has-icons-right">
-                    <input className="input" type="text" placeholder="Search..." />
-                    <span className="icon is-small is-left">
-                      <FontAwesomeIcon icon="search" />
-                    </span>
-                  </div>
+        <section className="section">
+          <div className="container">
+            <div className="columns is-mobile is-centered">
+              <div className="column is-three-quarters-desktop is-three-fifths-tablet">
+                <div>
+                  { listItems }
+                </div>
               </div>
             </div>
-
-            <div>
-              { listItems }
-            </div>
           </div>
-        </div>
+        </section>
       </div>     
     )
   }

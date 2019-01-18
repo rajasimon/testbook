@@ -129,63 +129,67 @@ class Profile extends Component {
   render() {
     return (
       <div className="profile-component">
-        <div className="columns is-mobile is-centered">
-          <div className="column is-half-desktop">
-            <h1 className="title">RajaSimon</h1>
-            <hr />
-            <form onSubmit={this.handlePasswordSubmit}>
-              <div className="field">
-                <label className="label">Old Password</label>
-                <div className="control has-icons-left">
-                  <input className="input" type="password" placeholder="Enter your new password and hit enter" value={this.state.oldPassword} onChange={this.handleOldPassword}  /> 
-                  <span className="icon is-small is-left">
-                    <FontAwesomeIcon icon="lock" />
-                  </span>
-                </div>
-                <p className={this.state.errorOldPassword ? 'help is-danger' : 'help'}>
-                  {this.state.errorOldPassword ? this.state.errorOldPassword : ''}
-                </p>
-              </div>
-              <hr />
-              <div className="field">
-                <label className="label">New Password</label>
-                <div className="control has-icons-left">
-                  <input className="input" type="password" placeholder="Enter your new password and hit enter" value={this.state.newPassword} onChange={this.handleNewPassword}  /> 
-                  <span className="icon is-small is-left">
-                    <FontAwesomeIcon icon="lock" />
-                  </span>
-                </div>
-                <p className={this.state.errorNewPassword ? 'help is-danger' : 'help'}>
-                  {this.state.errorNewPassword ? this.state.errorNewPassword : ''}
-                </p>
-              </div>
-              <div className="field">
-                <label className="label">Confirm Password</label>
-                <div className="control has-icons-left">
-                  <input className="input" type="password" placeholder="Enter your new password and hit enter" value={this.state.confirmPassword} onChange={this.handleConfirmPassword}  /> 
-                  <span className="icon is-small is-left">
-                    <FontAwesomeIcon icon="lock" />
-                  </span>
-                </div>
-                <p className={this.state.errorConfirmPassword ? 'help is-danger' : 'help'}>
-                  {this.state.errorConfirmPassword ? this.state.errorConfirmPassword : ''}
-                </p>
-              </div>
-              <p className={this.state.successResponse ? 'help is-primary' : 'help'}>
-                {this.state.successResponse ? this.state.successResponse : ''}
-              </p>
+        <section className="section">
+          <div className="container">
+            <div className="columns is-mobile is-centered">
+              <div className="column is-half-desktop">
+                <h1 className="title">RajaSimon</h1>
+                <hr />
+                <form onSubmit={this.handlePasswordSubmit}>
+                  <div className="field">
+                    <label className="label">Old Password</label>
+                    <div className="control has-icons-left">
+                      <input className="input" type="password" placeholder="Enter old password" value={this.state.oldPassword} onChange={this.handleOldPassword}  /> 
+                      <span className="icon is-small is-left">
+                        <FontAwesomeIcon icon="lock" />
+                      </span>
+                    </div>
+                    <p className={this.state.errorOldPassword ? 'help is-danger' : 'help'}>
+                      {this.state.errorOldPassword ? this.state.errorOldPassword : ''}
+                    </p>
+                  </div>
+                  <hr />
+                  <div className="field">
+                    <label className="label">New Password</label>
+                    <div className="control has-icons-left">
+                      <input className="input" type="password" placeholder="Enter new password" value={this.state.newPassword} onChange={this.handleNewPassword}  /> 
+                      <span className="icon is-small is-left">
+                        <FontAwesomeIcon icon="lock" />
+                      </span>
+                    </div>
+                    <p className={this.state.errorNewPassword ? 'help is-danger' : 'help'}>
+                      {this.state.errorNewPassword ? this.state.errorNewPassword : ''}
+                    </p>
+                  </div>
+                  <div className="field">
+                    <label className="label">Confirm Password</label>
+                    <div className="control has-icons-left">
+                      <input className="input" type="password" placeholder="Enter confirm password" value={this.state.confirmPassword} onChange={this.handleConfirmPassword}  /> 
+                      <span className="icon is-small is-left">
+                        <FontAwesomeIcon icon="lock" />
+                      </span>
+                    </div>
+                    <p className={this.state.errorConfirmPassword ? 'help is-danger' : 'help'}>
+                      {this.state.errorConfirmPassword ? this.state.errorConfirmPassword : ''}
+                    </p>
+                  </div>
+                  <p className={this.state.successResponse ? 'help is-primary' : 'help'}>
+                    {this.state.successResponse ? this.state.successResponse : ''}
+                  </p>
 
-              <div className="columns">
-                <div className="column">
-                  <button className="button is-primary" type="submit">Change Password</button>
-                </div>
-                <div className="column">
-                  <button className="button is-light is-pulled-right" onClick={this.sendActivationMail}>Send Activation Mail</button>
-                </div>
+                  <div className="columns">
+                    <div className="column">
+                      <button className="button is-primary" type="submit">Change Password</button>
+                    </div>
+                    <div className="column">
+                      <button className="button is-light is-pulled-right" onClick={this.sendActivationMail}>Send Activation Mail</button>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </form>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     )
   }

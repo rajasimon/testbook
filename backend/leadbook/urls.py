@@ -1,4 +1,4 @@
-"""backend URL Configuration
+"""leadbook URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from backend.core import urls as backend_urls
+from leadbook.core import urls as leadbook_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(backend_urls))
+    path('', include(leadbook_urls))
 ]

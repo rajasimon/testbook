@@ -9,8 +9,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
 
-from backend.core.models import Profile, Company
-from backend.core.serializers import UserSerializers, CompanySerializers, PasswordSerializer
+from leadbook.core.models import Profile, Company
+from leadbook.core.serializers import UserSerializers, CompanySerializers, PasswordSerializer
 
 
 # Create your views here.
@@ -108,9 +108,15 @@ def get_companies(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def search_companies(request):
-    companies = Company.objects.all()
+    search = request.data.get('search', None)
+    if search:
+        companies = Company.objects.filter(name__search=search)
+    else:
+        companies = Company.objects.all()
+        
     context={'user_id': request.user.id}
     serializer = CompanySerializers(companies, context=context)
+    print(search)
     return Response(serializer.data)
 
 

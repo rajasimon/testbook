@@ -44,15 +44,11 @@ class App extends Component {
         <div>
           <Route render={(props) => <Navbar {...props} isLoggedIn={this.state.isLoggedIn} />} />
           <Route exact path='/' component={Home} />
-          <section className="section">
-            <div className="container">
-              <Route exact path='/signin' render={(props) => <Signin {...props} isLoggedIn={this.state.isLoggedIn} />} />
-              <Route exact path='/signup' render={(props) => <Signup {...props} isLoggedIn={this.state.isLoggedIn} />} />
-              <Route exact path='/search' render={(props) => <Search {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
-              <Route exact path='/profile' render={(props) => <Profile {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
-              <Route exact path='/favorite' render={(props) => <Favorite {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
-            </div>
-          </section>
+            <Route exact path='/signin' render={(props) => <Signin {...props} isLoggedIn={this.state.isLoggedIn} />} />
+            <Route exact path='/signup' render={(props) => <Signup {...props} isLoggedIn={this.state.isLoggedIn} />} />
+            <Route exact path='/search' render={(props) => <Search {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
+            <Route exact path='/profile' render={(props) => <Profile {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
+            <Route exact path='/favorite' render={(props) => <Favorite {...props} isLoggedIn={this.state.isLoggedIn} user_id={this.state.user_id} email={this.state.email} token={this.state.token} />} />
         </div>
       </Router>
     );

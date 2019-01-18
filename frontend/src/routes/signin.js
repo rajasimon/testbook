@@ -83,41 +83,45 @@ class Signin extends Component {
   render() {
     return (
       <div className="signin-component">
-        <div className="columns is-mobile is-centered">
-          <div className="column is-half">
-            <form onSubmit={this.handleSubmit}>
-              <div className="field">
-                <label className="label">Username</label>
-                <div className="control has-icons-left has-icons-right">
-                  <input className="input" type="text" placeholder="rajasimon" value={this.state.username} onChange={this.handleUsername} />
-                  <span className="icon is-small is-left">
-                    <FontAwesomeIcon icon="user" />
-                  </span>
-                </div>
-                <p className={this.state.errorUsername ? 'help is-danger' : 'help'}>
-                  {this.state.errorUsername ? this.state.errorUsername : ''}
-                </p>
-              </div>
+        <section className="section"> 
+          <div className="container">
+            <div className="columns is-mobile is-centered">
+              <div className="column is-half">
+                <form onSubmit={this.handleSubmit}>
+                  <div className="field">
+                    <label className="label">Username</label>
+                    <div className="control has-icons-left has-icons-right">
+                      <input className="input" type="text" placeholder="rajasimon" value={this.state.username} onChange={this.handleUsername} />
+                      <span className="icon is-small is-left">
+                        <FontAwesomeIcon icon="user" />
+                      </span>
+                    </div>
+                    <p className={this.state.errorUsername ? 'help is-danger' : 'help'}>
+                      {this.state.errorUsername ? this.state.errorUsername : ''}
+                    </p>
+                  </div>
 
-              <div className="field">
-                <label className="label">Password</label>
-                <div className="control has-icons-left">
-                  <input className="input" type="password" placeholder="xxxxxx" value={this.state.password} onChange={this.handlePassword}  /> 
-                  <span className="icon is-small is-left">
-                    <FontAwesomeIcon icon="lock" />
-                  </span>
-                </div>
-                <p className={this.state.errorPassword ? 'help is-danger' : 'help'}>
-                  {this.state.errorPassword ? this.state.errorPassword : ''}
-                </p>
+                  <div className="field">
+                    <label className="label">Password</label>
+                    <div className="control has-icons-left">
+                      <input className="input" type="password" placeholder="xxxxxx" value={this.state.password} onChange={this.handlePassword}  /> 
+                      <span className="icon is-small is-left">
+                        <FontAwesomeIcon icon="lock" />
+                      </span>
+                    </div>
+                    <p className={this.state.errorPassword ? 'help is-danger' : 'help'}>
+                      {this.state.errorPassword ? this.state.errorPassword : ''}
+                    </p>
+                  </div>
+                  <p className={this.state.errorMessage ? 'help is-danger' : 'help'}>
+                    {this.state.errorMessage ? this.state.errorMessage : ''}
+                  </p>
+                  <button className="button is-primary">Submit</button>
+                </form>
               </div>
-              <p className={this.state.errorMessage ? 'help is-danger' : 'help'}>
-                {this.state.errorMessage ? this.state.errorMessage : ''}
-              </p>
-              <button className="button is-primary">Submit</button>
-            </form>
+            </div>
           </div>
-        </div>
+        </section>
       </div>   
     )
   }

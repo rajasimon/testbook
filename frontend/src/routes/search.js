@@ -44,6 +44,10 @@ class Search extends Component {
     this.setState({
       search: event.target.value
     })
+
+    if (event.target.value === '') {
+      this.handleSearchInputSubmit(event)
+    }
   }
 
   handleSearchInputSubmit(event) {
@@ -60,7 +64,7 @@ class Search extends Component {
       }
     })
       .then(res => res.json())
-      .then(response => console.log(response))
+      .then(response => this.handleResponse(response))
   }
 
   render() {
@@ -68,26 +72,30 @@ class Search extends Component {
 
     return (
       <div className="search-component">
-        <div className="columns is-mobile is-centered">
-          <div className="column is-three-quarters-desktop is-three-fifths-tablet">
-            <form onSubmit={this.handleSearchInputSubmit}>
-              <div className="field">
-                <div className="control">              
-                  <div className="control has-icons-left has-icons-right">
-                    <input className="input" type="text" placeholder="Search..." value={this.state.search} onChange={this.handleSearch} />
-                    <span className="icon is-small is-left">
-                      <FontAwesomeIcon icon="search" />
-                    </span>
+        <section className="section">
+          <div className="container">
+            <div className="columns is-mobile is-centered">
+              <div className="column is-three-quarters-desktop is-three-fifths-tablet">
+                <form onSubmit={this.handleSearchInputSubmit}>
+                  <div className="field">
+                    <div className="control">              
+                      <div className="control has-icons-left has-icons-right">
+                        <input className="input" type="text" placeholder="Search..." value={this.state.search} onChange={this.handleSearch} />
+                        <span className="icon is-small is-left">
+                          <FontAwesomeIcon icon="search" />
+                        </span>
+                      </div>
+                    </div>
                   </div>
+                </form>
+                <br></br>
+                <div>
+                  { listItems }
                 </div>
               </div>
-            </form>
-            <br></br>
-            <div>
-              { listItems }
             </div>
           </div>
-        </div>
+        </section>
       </div>     
     )
   }
