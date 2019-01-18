@@ -12,7 +12,7 @@ push_backend() {
   git checkout -b backend
   git add --all
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-  git push --quiet --force --set-upstream origin master
+  git push --quiet --force --set-upstream origin backend
   cd ..
 }
 
@@ -23,7 +23,7 @@ push_frontend() {
   git checkout -b frontend
   git add --all
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-  git push --quiet --set-upstream origin master
+  git push --quiet --set-upstream origin backend
   cd ..
 }
 
