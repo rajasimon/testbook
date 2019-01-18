@@ -1,15 +1,12 @@
 import datetime
 
 from django.contrib.auth.models import User
-from django.template.loader import get_template
-from django.template import Context
-from django.core.mail import EmailMultiAlternatives
 
-# Third party moduels 
+# Third party package / modules imports 
 from rest_framework import serializers
 
 from leadbook.core.models import Profile, Company
-from leadbook.core.helper import generate_token
+from leadbook.core.helper import generate_token, send_activation_email
 
 
 # Serializer fro user ( accounts management )
@@ -19,7 +16,6 @@ class UserSerializers(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'username', 'email', 'password']
 
     def create(self, validated_data):
-        print(validated_data)
         user = User.objects.create_user(**validated_data)
         user.set_password(validated_data['password'])
         user.is_active = False
@@ -32,29 +28,11 @@ class UserSerializers(serializers.HyperlinkedModelSerializer):
         profile.save()
 
         # Time to send email
-        self.send_activation_email(profile)
+        self.activate(profile)
         return user
 
-    def send_activation_email(self, profile):
-        DOMAIN_NAME = 'http://localhost:8000'
-        activation_link = DOMAIN_NAME + '/activate/' + profile.activation_key
-
-        context = {'activation_link': activation_link, 'username': profile.user.username}
-
-        email_text = get_template('email.txt')
-        email_html = get_template('email.html')
-
-        text_content = email_text.render(context)
-        email_content = email_html.render(context)
-
-        #print unicode(message).encode('utf8')
-        subject = 'Email Confirmation Link'
-        from_email = 'rajasimon@icloud.com'
-        to = profile.user.email
-
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.attach_alternative(email_content, "text/html")
-        msg.send()
+    def activate(self, profile):
+        send_activation_email(profile)
 
 
 class PasswordSerializer(serializers.Serializer):

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'leadbook.core',
     'phonenumber_field',
-    'corsheaders'
+    'corsheaders',
 ]
 
 MIDDLEWARE = [

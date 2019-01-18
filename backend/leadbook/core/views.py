@@ -1,6 +1,12 @@
+"""
+Leadbook django project view functions. 
+
+This file contains all the view functions to run leadbook. All the resources 
+mentioned in urls will access this file to get the view functions.
+"""
+# Third party packages / modules imports
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-
 from rest_framework import viewsets, status, authentication, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,31 +15,55 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes, action
 
+# Leadbook project level imports
 from leadbook.core.models import Profile, Company
 from leadbook.core.serializers import UserSerializers, CompanySerializers, PasswordSerializer
 
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
+    """
+    Users Rest API resource view function. Responsible for create, update
+    user related actions.
+
+    Create a new user instance.
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializers
+    http_method_names = ['post']
 
     def get_permissions(self):
+        """
+        Leadbook project using project level restriction to use the Rest API 
+        endpoint so creating the new user requires lifting this permission and 
+        grant anyone to access `create` aka POST method.
+        """
+        # Condition to check the action level and set desired permission_class
         if self.action == 'create':
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAuthenticated]
+        
+        # Finally return the all the permissions
         return [permission() for permission in permission_classes]
 
     @action(detail=True, methods=['post'])
-    def send_activation_email(self, request, pk=None):
-        user = self.get_object()
-        serializer = self.serializer_class(data=request.data)
-        serializer.send_activation_email(user.profile)
-        return Response({'success': 'New confirmation mail sent successfully'})
-
-    @action(detail=True, methods=['post'])
     def set_password(self, request, pk=None):
+        """
+        post:
+        User can change the password by supplying old and new password. This
+        function accepts POST method and expect 3 data from the user
+
+        old_password
+        new_password
+        confirm_password
+
+        Also responsible for error cased where new and confirm password mismatches
+        and old password is wrong. 
+
+        Note: Protected resource and client must pass token in the header. 
+        """
+        # 
         user = self.get_object()
         serializer = PasswordSerializer(data=request.data)
         if serializer.is_valid():
@@ -61,6 +91,11 @@ class UserViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def activate_token(request, token):
+    """
+    After successfull user creation still user need to validate the account using
+    verification link which sends to their mail earlier. Upon successful activation
+    user needs to navigate to frontend. Accept token as parament and redirect the user to frontend.
+    """
     try:
         profile = Profile.objects.get(activation_key=token)
         profile.user.is_active = True
@@ -75,8 +110,15 @@ def activate_token(request, token):
 
 
 class CustomAuthToken(ObtainAuthToken):
+    """
+    post:
+    Generate custom auth token for clients to access protected resources.
+    """
 
     def post(self, request, *args, **kwargs):
+        """
+        Return token along with email and user_id.
+        """
         serializer = self.serializer_class(
             data=request.data, 
             context={'request': request}
@@ -99,6 +141,11 @@ class CustomAuthToken(ObtainAuthToken):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_companies(request):
+    """
+    Return all the companies. Since this is protected resource client must 
+    submit token in the header to access this resource. So using the user_id to 
+    add favorite in the result.
+    """
     companies = Company.objects.all()
     context={'user_id': request.user.id}
     serializer = CompanySerializers(companies, context=context)
@@ -108,6 +155,9 @@ def get_companies(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def search_companies(request):
+    """
+    Search companies by providing search argument in the POST method.
+    """
     search = request.data.get('search', None)
     if search:
         companies = Company.objects.filter(name__search=search)
@@ -123,6 +173,9 @@ def search_companies(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_favorites(request):
+    """
+    Return all the associated companies for this user.
+    """
     companies = request.user.profile.companies.all()
     context = {'user_id': request.user.id}
     serializer = CompanySerializers(companies, context=context)
@@ -132,6 +185,9 @@ def get_favorites(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def set_favorite(request):
+    """
+    Add company object to companies in profile.
+    """
     company_id = request.data.get('id')
     company = Company.objects.get(id=company_id)
 
@@ -142,6 +198,9 @@ def set_favorite(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def delete_favorite(request):
+    """
+    Remove company object from the profile companies.
+    """
     company_id = request.data.get('id')
     company = Company.objects.get(id=company_id)
 

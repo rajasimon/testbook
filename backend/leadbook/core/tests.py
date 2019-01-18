@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from rest_framework.test import APIClient, APIRequestFactory
 
-from ledbook.core.models import Company
+from leadbook.core.models import Company
 from leadbook.core.views import UserViewSet, CompanyViewSet
 
 

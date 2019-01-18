@@ -26,7 +26,6 @@ class Profile extends Component {
     this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this)
     this.handleSuccessResponse = this.handleSuccessResponse.bind(this)
     this.handleFailedResponse = this.handleFailedResponse.bind(this)
-    this.sendActivationMail = this.sendActivationMail.bind(this)
   }
 
   componentDidMount() {
@@ -109,23 +108,6 @@ class Profile extends Component {
     }
    }
 
-   sendActivationMail(event) {
-     event.preventDefault()
-
-      fetch('http://localhost:8000/users/' + this.state.user_id + '/send_activation_email/', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: this.state.email,
-        }),
-        headers:{
-          'Authorization': 'Token ' + this.state.token,
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(res => res.json())
-        .then(response => console.log(response))
-   }
-
   render() {
     return (
       <div className="profile-component">
@@ -177,14 +159,7 @@ class Profile extends Component {
                     {this.state.successResponse ? this.state.successResponse : ''}
                   </p>
 
-                  <div className="columns">
-                    <div className="column">
-                      <button className="button is-primary" type="submit">Change Password</button>
-                    </div>
-                    <div className="column">
-                      <button className="button is-light is-pulled-right" onClick={this.sendActivationMail}>Send Activation Mail</button>
-                    </div>
-                  </div>
+                  <button className="button is-primary" type="submit">Change Password</button>
                 </form>
               </div>
             </div>
