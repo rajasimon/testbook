@@ -6,20 +6,20 @@ python:
 services: postgresql
 
 addons:
-  postgresql: 10
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
+  postgresql: "9.4"
+#   apt:
+#     packages:
+#     - postgresql-10
+#     - postgresql-client-10
 
-env:
-  global:
-    - PGUSER=postgres
-    - PGHOST=""
-    - PGPORT=5433
+# env:
+#   global:
+#     - PGUSER=postgres
+#     - PGHOST=""
+#     - PGPORT=5433
 
-before_install:
-  - sudo /etc/init.d/postgresql start 10
+# before_install:
+#   - sudo /etc/init.d/postgresql start 10
 
 install:
   - pip install pipenv
