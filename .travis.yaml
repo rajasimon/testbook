@@ -1,0 +1,11 @@
+deploy:
+  - provider: script
+    local-dir: backend
+    target-branch: backend
+    on:
+      branch: master
+  - provider: script
+    local-dir: frontend
+    target-branch: frontend
+    on:
+      branch: master

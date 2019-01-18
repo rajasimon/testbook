@@ -26,5 +26,7 @@ manage command.
 
 This project uses PostgreSQL and the configuration can be done by providing environment variables. 
 
-#### Dump data
-pipenv run python manage.py dumpdata core.Company  -o leadbook/core/fixtures/companies.json
+
+#### Dump Data
+
+    pipenv run python manage.py dumpdata core.Company  -o leadbook/core/fixtures/companies.json
