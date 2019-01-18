@@ -43,10 +43,11 @@ class Navbar extends Component {
     }
     return (
       <div className="navbar-component">
-        <nav className="navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
+        <nav className="navbar is-white has-shadow is-spaced" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
             <a className="navbar-item" href="/">
-              <h1 className="title">TestCRM</h1>
+              <h1 className="title">Lead
+              <span className="strong has-text-primary">book</span></h1>
             </a>
 
             <button className="navbar-burger" aria-label="menu" aria-expanded="false">
