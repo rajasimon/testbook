@@ -16,7 +16,7 @@ Note: Upon command will take care of creating virtualenv and install all the dep
 which is mentioned in Pipfile.
 
 
-## How to run:
+## Development:
 
 Since this project using pipenv it's good idea to start by activating pipenv and run the
 manage command. 
@@ -26,9 +26,30 @@ manage command.
 
 ### Database Configuration
 
-This project uses PostgreSQL and the configuration can be done by providing environment variables. 
+One of the advantages of the `pipenv` is we can use `.env` file to configure
+environment variables. 
 
+    # .env
+
+    DATABASE_NAME=<DATABASE_NAME>
+    DATABASE_USER=<DATABASE_USER>
+    DATABASE_PASSWORD=<DATABASE_PASSWORD>
 
 #### Dump Data
 
     pipenv run python manage.py dumpdata core.Company  -o leadbook/core/fixtures/companies.json
+
+
+### Management Command
+
+To trigger the activation mail again please use this command.
+
+    pipenv run python manage.py send_activation_mail <username>
+
+
+## Deployment
+
+Normal django runserver command is not suitable for production environment so 
+in Heroku environment this project will use gunicorn to server API request
+
+    gunicorn leadbook.wsgi
