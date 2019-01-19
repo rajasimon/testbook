@@ -28,10 +28,6 @@ class Profile extends Component {
     this.handleFailedResponse = this.handleFailedResponse.bind(this)
   }
 
-  componentDidMount() {
-    console.log(this.state)
-  }
-
   handleOldPassword(event) {
     this.setState({
       oldPassword: event.target.value,

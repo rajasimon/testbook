@@ -18,8 +18,6 @@ class Favorite extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state)
-    console.log(this.props.location)
     
     // Also get the companies
     fetch('http://localhost:8000/get-favorites/', {
