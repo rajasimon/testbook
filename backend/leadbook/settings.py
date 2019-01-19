@@ -163,3 +163,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+import django_heroku
+
+django_heroku.settings(locals())
