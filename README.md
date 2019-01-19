@@ -14,12 +14,11 @@ Deployment for the single repo is hard so I created main Travis file that can cr
 
 ## Frontend
 
-
-
-Please click this [link](https://example.com) to access frontend website.
+Frontend codebase deployed to [Netlify](https://netlify.com) and
+you can access the frontend website in this [link](https://loving-jang-736a34.netlify.com)
 
 
 ## Backend
 
-Please click this [link](https://example.com) to access Backend API Documentation.
-
+Backedn codebase deployed to [Heroku](https://heroku.com) and you can access the
+API documentation by clicking this [link](https://leadbook-challenge.herokuapp.com/docs/)
