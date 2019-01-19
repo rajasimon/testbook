@@ -1,5 +1,7 @@
+import json
 from datetime import datetime, timedelta
 
+from django.core.management import call_command
 from django.test import TestCase
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
@@ -74,6 +76,7 @@ class ActivateTokenTestCase(TestCase):
         self.profile = Profile.objects.create(user=self.user)        
         self.profile.token = generate_token()
         self.profile.key_expires = datetime.strftime(datetime.now() + timedelta(days=2), "%Y-%m-%d %H:%M:%S")
+        self.profile.save()
 
     def test_activate_token(self):
         
@@ -84,7 +87,7 @@ class ActivateTokenTestCase(TestCase):
 
 
 
-class CompanySimpleTestCase(TestCase):
+class CustomAuthTokenTestCase(TestCase):
     def setUp(self):
         # Every test needs access to the request factory
         self.client = APIClient()
@@ -119,8 +122,6 @@ class CompaniesTestCase(TestCase):
         self.assertEqual(response.content, b'[]')
 
     def test_load_companies(self):
-        import json
-        from django.core.management import call_command
         call_command('loaddata', 'leadbook/core/fixtures/companies.json', verbosity=0)
 
         response = self.client.get('/get-companies/')
@@ -128,3 +129,36 @@ class CompaniesTestCase(TestCase):
         with open('leadbook/core/fixtures/companies.json') as data_file:
             data = json.loads(data_file.read())
             self.assertEqual(len(response.json()), len(data))
+
+
+class FavoriteTestCase(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        # Create user instance
+        self.user = User.objects.create(username='testuser', email='test@email.com')
+        self.user.set_password('password')
+        self.user.save()
+
+        # Create profile instance
+        self.profile = Profile.objects.create(user=self.user)        
+        self.profile.token = generate_token()
+        self.profile.key_expires = datetime.strftime(datetime.now() + timedelta(days=2), "%Y-%m-%d %H:%M:%S")
+        self.profile.save()
+
+        # Create company entries
+        from django.core.management import call_command
+        call_command('loaddata', 'leadbook/core/fixtures/companies.json', verbosity=0)
+
+        # Create token for login purpose
+        token = Token.objects.get(user__username='testuser')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+
+    def test_set_favorite(self):
+        response = self.client.post('/set-favorite/', {'id': 1})
+        self.assertEqual(response.json(), {'favorite': True})
+
+    def test_delete_favorite(self):
+        response = self.client.post('/delete-favorite/', {'id': 1})
+        self.assertEqual(response.json(), {'favorite': False})
