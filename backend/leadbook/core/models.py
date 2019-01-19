@@ -13,6 +13,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_verified = models.BooleanField(default=False)
     activation_key = models.CharField(max_length=40, null=True, blank=True)
     key_expires = models.DateTimeField(null=True, blank=True)
     companies = models.ManyToManyField('Company', blank=True)

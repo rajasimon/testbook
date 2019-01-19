@@ -104,8 +104,8 @@ def activate_token(request, token):
     """
     try:
         profile = Profile.objects.get(activation_key=token)
-        profile.user.is_active = True
-        profile.user.save()
+        profile.is_verified = True
+        profile.save()
     except Profile.DoesNotExist:
         profile = None
 

@@ -1,9 +1,13 @@
+from datetime import datetime, timedelta
+
 from django.test import TestCase
 from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient, APIRequestFactory, force_authenticate
 
 from leadbook.core.models import Profile
-from leadbook.core.views import UserViewSet
+from leadbook.core.views import UserViewSet, activate_token
+from leadbook.core.helper import generate_token
 
 
 class UserViewSetTestCase(TestCase):
@@ -60,32 +64,67 @@ class UserViewSetTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-# class CompanySimpleTestCase(TestCase):
-#     def setUp(self):
-#         # Every test needs access to the request factory
-#         self.client = APIClient()
+class ActivateTokenTestCase(TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.user = User.objects.create_user('testuser', 'test@email.com')
+        self.user.set_password('password')
+        self.user.save()
 
-#     def test_home(self):
-#         # Using the standard RequestFactory API to create a GET request
-#         response = self.client.get('/')
-#         self.assertEqual(response.status_code, 200)
+        self.profile = Profile.objects.create(user=self.user)        
+        self.profile.token = generate_token()
+        self.profile.key_expires = datetime.strftime(datetime.now() + timedelta(days=2), "%Y-%m-%d %H:%M:%S")
 
+    def test_activate_token(self):
+        
+        request = self.factory.get('/activate/<token>')
+        response = activate_token(request, self.profile.token)
 
-# class CompanyFactoryTestCase(TestCase):
-#     def setUp(self):
-#         # Every test needs access to the request factory
-#         self.factory = APIRequestFactory()
-
-#     def test_users(self):
-#         # Create a GET request
-#         request = self.factory.get('/users/', {})
-
-#         # View function for users endpoint
-#         view = CompanyViewSet.as_view({'get': 'list'})
-
-#         # GET response from view
-#         response = view(request)
-
-#         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
 
+
+class CompanySimpleTestCase(TestCase):
+    def setUp(self):
+        # Every test needs access to the request factory
+        self.client = APIClient()
+
+    def test_get(self):
+        # Using the standard RequestFactory API to create a GET request
+        response = self.client.get('/api-token-auth/')
+        self.assertEqual(response.status_code, 405)
+
+    def test_post(self):
+        response = self.client.post(
+            '/api-token-auth/', 
+            {'username': 'testuser', 'password': 'password'}
+        )
+        self.assertEqual(response.status_code, 400)
+
+
+class CompaniesTestCase(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        
+        # Create user instance
+        user = User.objects.create(username='testuser', email='test@email.com')
+        user.set_password('password')
+        user.save()
+
+        token = Token.objects.get(user__username='testuser')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+
+    def test_get_companies(self):
+        response = self.client.get('/get-companies/')
+        self.assertEqual(response.content, b'[]')
+
+    def test_load_companies(self):
+        import json
+        from django.core.management import call_command
+        call_command('loaddata', 'leadbook/core/fixtures/companies.json', verbosity=0)
+
+        response = self.client.get('/get-companies/')
+
+        with open('leadbook/core/fixtures/companies.json') as data_file:
+            data = json.loads(data_file.read())
+            self.assertEqual(len(response.json()), len(data))
