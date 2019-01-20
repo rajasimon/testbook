@@ -1,5 +1,7 @@
 # Leadbook
 
+[![Build Status](https://travis-ci.org/rajasimon/testbook.svg?branch=backend)](https://travis-ci.org/rajasimon/testbook)
+
 Leadbook backend created using Python and Django Framework. And the Rest API
 powered by Django Rest Framework. 
 

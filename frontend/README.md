@@ -1,5 +1,7 @@
 Leadbook | Frontend codebase
 
+[![Build Status](https://travis-ci.org/rajasimon/testbook.svg?branch=frontend)](https://travis-ci.org/rajasimon/testbook)
+
 Update .env file for development environment
 
     REACT_APP_BACKEND_URL=http://localhost:8000

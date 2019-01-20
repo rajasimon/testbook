@@ -1,5 +1,7 @@
 # Leadbook
 
+[![Build Status](https://travis-ci.org/rajasimon/testbook.svg?branch=master)](https://travis-ci.org/rajasimon/testbook)
+
 Leadbook Full Stack Developer | Programming Challenge
 
 [![](https://imgur.com/download/G9UwjW9)](https://loving-jang-736a34.netlify.com)
