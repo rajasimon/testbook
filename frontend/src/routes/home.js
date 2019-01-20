@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 import preferences from '../assets/preferences.png';
+import collaboration from '../assets/collaboration.png';
+import search from '../assets/search.png';
+import wireframing from '../assets/wireframing.png'
 
 class Home extends Component {
   render() {
@@ -36,7 +39,7 @@ class Home extends Component {
                 <header className="header">
                   <h4 className="title has-text-primary has-text-centered">Search Companies</h4>
                   <figure className="image is-2by1">
-                    <img src="" />
+                    <img src={search} />
                   </figure>
                 </header>
               </div>
@@ -44,7 +47,7 @@ class Home extends Component {
                 <header className="header">
                   <h4 className="title has-text-primary has-text-centered">Favorite Companies</h4>
                   <figure className="image is-2by1">
-                    <img src="" />
+                    <img src={collaboration} />
                   </figure>
                 </header>
               </div>
@@ -62,7 +65,7 @@ class Home extends Component {
         <footer className="footer">
           <div className="content has-text-centered">
             <p>
-              TestCRM Made with love in Chennai by <a href="https://twitter.com/rajasimon">Rajasimon</a>
+              Leadbook | Programming Challenge | Made with love in Chennai by <a href="https://twitter.com/rajasimon">Rajasimon</a>
             </p>
           </div>
         </footer>
