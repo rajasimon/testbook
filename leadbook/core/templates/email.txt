@@ -1,0 +1,1 @@
+Hi {{ username }} Please click {{ activation_link }} to activate your account.

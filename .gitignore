@@ -1,0 +1,5 @@
+.env
+.vscode/
+*.sqlite3
+Pipfile.lock
+__pycache__/
