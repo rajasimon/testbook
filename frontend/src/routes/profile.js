@@ -53,7 +53,7 @@ class Profile extends Component {
   handlePasswordSubmit(event) {
     event.preventDefault()
 
-    fetch('http://localhost:8000/users/' + this.state.user_id + '/set_password/', {
+    fetch(process.env.REACT_APP_BACKEND_URL + '/users/' + this.state.user_id + '/set_password/', {
       method: 'POST',
       body: JSON.stringify({
         old_password: this.state.oldPassword,

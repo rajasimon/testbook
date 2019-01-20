@@ -23,7 +23,7 @@ class Search extends Component {
 
   componentDidMount() {
     // Also get the companies
-    fetch('http://localhost:8000/get-companies/', {
+    fetch(process.env.REACT_APP_BACKEND_URL + '/get-companies/', {
       method: "GET",
       headers:{
         'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ class Search extends Component {
   handleSearchInputSubmit(event) {
     event.preventDefault()
 
-    fetch('http://localhost:8000/search-companies/', {
+    fetch(process.env.REACT_APP_BACKEND_URL + '/search-companies/', {
       method: "POST",
       body: JSON.stringify({
         search: this.state.search

@@ -21,9 +21,9 @@ class Card extends Component {
   handleFavorite() {
     let endpoint
     if (this.state.favorite === true) {
-      endpoint = 'http://localhost:8000/delete-favorite/'
+      endpoint = process.env.REACT_APP_BACKEND_URL +  '/delete-favorite/'
     } else {
-      endpoint = 'http://localhost:8000/set-favorite/'
+      endpoint = process.env.REACT_APP_BACKEND_URL + '/set-favorite/'
     }
 
     fetch(endpoint, {

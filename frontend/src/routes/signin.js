@@ -37,7 +37,7 @@ class Signin extends Component {
   handleSubmit(event) {
     event.preventDefault()
 
-    fetch('http://localhost:8000/api-token-auth/', {
+    fetch(process.env.REACT_APP_BACKEND_URL + '/api-token-auth/', {
       method: 'POST',
       body: JSON.stringify({
         username: this.state.username,

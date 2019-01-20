@@ -20,7 +20,7 @@ class Favorite extends Component {
   componentDidMount() {
     
     // Also get the companies
-    fetch('http://localhost:8000/get-favorites/', {
+    fetch(process.env.REACT_APP_BACKEND_URL + '/get-favorites/', {
       method: "GET",
       headers:{
         'Content-Type': 'application/json',

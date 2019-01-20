@@ -7,6 +7,7 @@ mentioned in urls will access this file to get the view functions.
 # Third party packages / modules imports
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from django.conf import settings
 from rest_framework import viewsets, status, authentication, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -102,6 +103,15 @@ def activate_token(request, token):
     verification link which sends to their mail earlier. Upon successful activation
     user needs to navigate to frontend. Accept token as parament and redirect the user to frontend.
     """
+    # Getting environment from settings
+    debug = settings.DEBUG
+
+    # Based on the debug redirect the user to correct url
+    if debug:
+        REDIRECT_URL = 'http://localhost:3000'
+    else:
+        REDIRECT_URL = 'https://leadbook-challenge.herokuapp.com'
+
     try:
         profile = Profile.objects.get(activation_key=token)
         profile.is_verified = True
@@ -110,9 +120,9 @@ def activate_token(request, token):
         profile = None
 
     if profile:
-        return HttpResponseRedirect('http://localhost:3000/activation/success')
+        return HttpResponseRedirect('{}/activation/success'.format(REDIRECT_URL))
     else:
-        return HttpResponseRedirect('http://localhost:3000/activation/failed')
+        return HttpResponseRedirect('{}/activation/failed'.format(REDIRECT_URL))
 
 
 class CustomAuthToken(ObtainAuthToken):

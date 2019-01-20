@@ -45,7 +45,7 @@ class Signup extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    fetch('http://localhost:8000/users/', {
+    fetch(process.env.REACT_APP_BACKEND_URL + '/users/', {
       method: 'POST',
       body: JSON.stringify({
         username: this.state.username,
