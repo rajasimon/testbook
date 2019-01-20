@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 import preferences from '../assets/preferences.png';
 import collaboration from '../assets/collaboration.png';
 import search from '../assets/search.png';
 import wireframing from '../assets/wireframing.png'
+import Signin from './signin';
+
 
 class Home extends Component {
   render() {
@@ -20,7 +23,9 @@ class Home extends Component {
                   <h2 className="subtitle">
                     Lead generation powered by Artifical Intelligence.
                   </h2>
-                  <button className="button is-primary is-medium">GETTING STARTED</button>
+                  <Link className="button is-primary is-medium" to="/signin">
+                    GETTING STARTED
+                  </Link>
                 </div>
                 <div className="column">
                   <figure className="image is-4by3">
